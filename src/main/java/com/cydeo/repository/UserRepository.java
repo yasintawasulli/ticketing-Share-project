@@ -1,4 +1,11 @@
 package com.cydeo.repository;
 
-public class UserRepository {
+import com.cydeo.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface UserRepository extends JpaRepository<User,Long> {
+
+
 }
