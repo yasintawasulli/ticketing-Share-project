@@ -13,12 +13,12 @@ public class User extends BaseEntity{
     private String firstName;
     private String lastName;
     private String userName;
-    private String email;
-    private String password;
-    private Long phoneNumber;
+    private String passWord;
+    private String phone;
     @ManyToOne()
     @JoinColumn(name = "role_id")
     private Role role;
+    private boolean enabled;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
