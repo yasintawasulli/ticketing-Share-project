@@ -15,4 +15,6 @@ public interface TaskService {
 
     TaskDTO update(TaskDTO taskDTO);
 
+    TaskDTO findTaskById(Long id);
+
 }
