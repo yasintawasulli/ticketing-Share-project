@@ -1,4 +1,5 @@
 package com.cydeo.entity;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,18 +7,25 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
-@Data
 @AllArgsConstructor
+@Data
 @MappedSuperclass
 public class BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, updatable = false)
     private LocalDateTime insertDateTime;
+    @Column(nullable = false, updatable = false)
     private Long insertUserId;
+    @Column(nullable = false)
     private LocalDateTime lastUpdateDateTime;
+    @Column(nullable = false)
     private Long lastUpdateUserId;
-    private boolean isDeleted=false;
+
+    private Boolean isDeleted = false;
 
     @PrePersist
     public void onPrePersist() {
@@ -32,6 +40,5 @@ public class BaseEntity {
         this.lastUpdateDateTime = LocalDateTime.now();
         this.lastUpdateUserId = 1L;
     }
-
 
 }
