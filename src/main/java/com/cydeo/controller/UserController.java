@@ -30,7 +30,7 @@ public class UserController {
  @GetMapping
  public ResponseEntity<ResponseWrapper> getAllUser(){
   List<UserDTO> userDTOS = userService.listAllUsers();
-  return ResponseEntity.ok(new ResponseWrapper("User retrieved",HttpStatus.OK, userDTOS));
+  return ResponseEntity.ok(new ResponseWrapper("User retrieved",userDTOS,HttpStatus.OK));
  }
 
  @DeleteMapping("{username}")

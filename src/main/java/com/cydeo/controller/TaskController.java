@@ -27,7 +27,7 @@ public class TaskController {
         @GetMapping
         public ResponseEntity<ResponseWrapper>getAllTasks(){
             List<TaskDTO> tasks= taskService.listAllTasks();
-            return ResponseEntity.ok(new ResponseWrapper("Tasks are retrieved", HttpStatus.OK, tasks));
+            return ResponseEntity.ok(new ResponseWrapper("Tasks are retrieved", tasks, HttpStatus.OK));
         }
 
 }

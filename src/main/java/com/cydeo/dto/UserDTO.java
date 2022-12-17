@@ -1,25 +1,17 @@
 package com.cydeo.dto;
+
 import com.cydeo.enums.Gender;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDTO {
 
     private Long id;
-    private String firstName;
-    private String lastName;
-    private String userName;
-    private String passWord;
-    private String confirmPassWord;
-    private String phone;
-    private boolean enabled;
-
-    private RoleDTO role;
-    private Gender gender;
 
     public Long getId() {
         return id;
@@ -27,6 +19,52 @@ public class UserDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    private String firstName;
+
+    private String lastName;
+
+    private String userName;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String passWord;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String confirmPassWord;
+
+    private boolean enabled;
+
+    private String phone;
+
+    private RoleDTO role;
+
+    private Gender gender;
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+        checkConfirmPassword();
+    }
+
+    public String getConfirmPassWord() {
+        return confirmPassWord;
+    }
+
+    public void setConfirmPassWord(String confirmPassWord) {
+        this.confirmPassWord = confirmPassWord;
+        checkConfirmPassword();
+    }
+
+    private void checkConfirmPassword() {
+        if (this.passWord == null || this.confirmPassWord == null) {
+            return;
+        } else if (!this.passWord.equals(this.confirmPassWord)) {
+            this.confirmPassWord = null;
+        }
     }
 
     public String getFirstName() {
@@ -53,20 +91,12 @@ public class UserDTO {
         this.userName = userName;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
-    }
-
-    public String getConfirmPassWord() {
-        return confirmPassWord;
-    }
-
-    public void setConfirmPassWord(String confirmPassWord) {
-        this.confirmPassWord = confirmPassWord;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getPhone() {
@@ -75,14 +105,6 @@ public class UserDTO {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
     public RoleDTO getRole() {
@@ -100,4 +122,5 @@ public class UserDTO {
     public void setGender(Gender gender) {
         this.gender = gender;
     }
+
 }
