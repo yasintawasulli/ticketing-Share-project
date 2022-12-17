@@ -14,6 +14,8 @@ public interface UserService {
 
     UserDTO update(UserDTO userDTO);
 
+    UserDTO findByUserName(String username);
+
 
 
 
