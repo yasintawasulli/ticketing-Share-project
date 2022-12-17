@@ -33,4 +33,16 @@ public class UserController {
   return ResponseEntity.ok(new ResponseWrapper("User retrieved",HttpStatus.OK, userDTOS));
  }
 
+ @DeleteMapping("{username}")
+ public ResponseEntity<ResponseWrapper> deleteById(@PathVariable ("username") String username){
+  userService.delete(username);
+  return ResponseEntity.ok(new ResponseWrapper("User is deleted",HttpStatus.OK));
+ }
+
+ @PutMapping
+ public ResponseEntity<ResponseWrapper> updateUser(@RequestBody UserDTO userDTO){
+  UserDTO userDTO1=userService.update(userDTO);
+  return ResponseEntity.ok(new ResponseWrapper("User updated",HttpStatus.OK));
+ }
+
 }
