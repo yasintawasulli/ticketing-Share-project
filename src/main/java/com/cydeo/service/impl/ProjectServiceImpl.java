@@ -53,7 +53,7 @@ public class ProjectServiceImpl implements ProjectService {
 
         projectRepository.save(project);
 
-//        taskService.deleteByProject(projectMapper.convertToDto(project));
+        taskService.deleteByProject(projectMapper.convertToDto(project));
 
 
     }
