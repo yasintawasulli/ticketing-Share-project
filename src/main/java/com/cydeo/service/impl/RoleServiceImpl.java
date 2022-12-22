@@ -34,6 +34,8 @@ public class RoleServiceImpl implements RoleService {
 
 
     // this method was added by Jawid
+
+
     @Override
     public RoleDTO findById(Long id) {
         return roleMapper.convertToDto(roleRepository.findById(id).get());
