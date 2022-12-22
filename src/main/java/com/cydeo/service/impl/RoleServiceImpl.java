@@ -32,12 +32,10 @@ public class RoleServiceImpl implements RoleService {
 //        return roleList.stream().map(role -> mapperUtil.convert(role, RoleDTO.class)).collect(Collectors.toList());
     }
 
+
+    // this method was added by Jawid
     @Override
     public RoleDTO findById(Long id) {
-
-
-
-
         return roleMapper.convertToDto(roleRepository.findById(id).get());
     }
 }
