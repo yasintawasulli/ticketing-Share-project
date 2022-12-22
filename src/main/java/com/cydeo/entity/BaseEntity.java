@@ -1,9 +1,10 @@
 package com.cydeo.entity;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -34,6 +35,7 @@ public class BaseEntity {
         this.insertUserId = 1L;
         this.lastUpdateUserId = 1L;
     }
+
     @PreUpdate
     public void onPreUpdate() {
         this.lastUpdateDateTime = LocalDateTime.now();

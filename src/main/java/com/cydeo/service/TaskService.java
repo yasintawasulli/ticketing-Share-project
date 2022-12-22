@@ -2,25 +2,30 @@ package com.cydeo.service;
 
 import com.cydeo.dto.ProjectDTO;
 import com.cydeo.dto.TaskDTO;
-import com.cydeo.exception.TaskNotFoundException;
-
+import com.cydeo.dto.UserDTO;
+import com.cydeo.enums.Status;
 
 import java.util.List;
 
 public interface TaskService {
 
+    TaskDTO findById(Long id);
     List<TaskDTO> listAllTasks();
 
-    TaskDTO findById(Long id) throws TaskNotFoundException;
-
-    void save(TaskDTO taskDTO);
-
+    void save(TaskDTO dto);
+    void update(TaskDTO dto);
     void delete(Long id);
 
-    void update(TaskDTO taskDTO);
+    int totalNonCompletedTask(String projectCode);
+    int totalCompletedTask(String projectCode);
 
     void deleteByProject(ProjectDTO projectDTO);
 
-    TaskDTO findTaskById(Long id);
+    void completeByProject(ProjectDTO projectDTO);
+
+    List<TaskDTO> listAllTasksByStatusIsNot(Status status);
+    List<TaskDTO> listAllTasksByStatus(Status status);
+
+    List<TaskDTO> listAllNonCompletedByAssignedEmployee(UserDTO assignedEmployee);
 
 }

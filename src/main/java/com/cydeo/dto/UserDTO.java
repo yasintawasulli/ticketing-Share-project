@@ -1,16 +1,23 @@
 package com.cydeo.dto;
 
 import com.cydeo.enums.Gender;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.constraints.*;
+
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDTO {
-
+    @JsonIgnore
     private Long id;
 
     public Long getId() {
@@ -21,24 +28,37 @@ public class UserDTO {
         this.id = id;
     }
 
+    @NotBlank
+    @Size(max = 15, min = 2)
     private String firstName;
 
+    @NotBlank
+    @Size(max = 15, min = 2)
     private String lastName;
 
+    @NotBlank
+    @Email
     private String userName;
 
+    @NotBlank
+    @Pattern(regexp = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,}")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String passWord;
 
+    @NotNull
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String confirmPassWord;
 
     private boolean enabled;
 
+    @NotBlank
+    @Pattern(regexp = "^\\d{10}$")
     private String phone;
 
+    @NotNull
     private RoleDTO role;
 
+    @NotNull
     private Gender gender;
 
     public String getPassWord() {
