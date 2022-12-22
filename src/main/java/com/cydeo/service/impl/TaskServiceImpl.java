@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -24,7 +23,6 @@ public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final TaskMapper mapper;
 
-    public TaskServiceImpl(TaskRepository taskRepository, TaskMapper mapper) {
     private final ProjectMapper projectMapper;
 
     public TaskServiceImpl(TaskRepository taskRepository, TaskMapper mapper, ProjectMapper projectMapper) {
@@ -35,9 +33,6 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TaskDTO> listAllTasks() {
-        List<TaskDTO> taskDTOList = taskRepository.findAll().stream().map(mapper::convertToDto).collect(Collectors.toList());
-        return taskDTOList;
-    }
         List<TaskDTO> taskDTOList = taskRepository.findAll().stream().map(mapper::convertToDto).collect(Collectors.toList());
         return taskDTOList;
     }
@@ -77,12 +72,6 @@ public class TaskServiceImpl implements TaskService {
         }
     }
 
-    @Override
-    public TaskDTO update(TaskDTO taskDTO) {
-        Task convertedTask = mapper.convertToEntity(taskDTO);
-        taskRepository.save(convertedTask);
-        return findTaskById(taskDTO.getId());
-    }
 
     @Override
     public TaskDTO findTaskById(Long id) {
@@ -91,7 +80,7 @@ public class TaskServiceImpl implements TaskService {
 
 
     }
-}
+    @Override
     public void update(TaskDTO taskDTO) {
         Optional<Task> task = taskRepository.findById(taskDTO.getId());
         Task updatedTask = mapper.convertToEntity(taskDTO);
@@ -106,7 +95,6 @@ public class TaskServiceImpl implements TaskService {
             taskRepository.save(updatedTask);
         }
     }
-
 
     @Override
     public void deleteByProject(ProjectDTO projectDTO) {
