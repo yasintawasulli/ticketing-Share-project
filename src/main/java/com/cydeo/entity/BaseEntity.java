@@ -34,7 +34,6 @@ public class BaseEntity {
         this.insertUserId = 1L;
         this.lastUpdateUserId = 1L;
     }
-
     @PreUpdate
     public void onPreUpdate() {
         this.lastUpdateDateTime = LocalDateTime.now();

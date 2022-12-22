@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -23,6 +22,7 @@ public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
     private final TaskMapper mapper;
+
     private final ProjectMapper projectMapper;
 
     public TaskServiceImpl(TaskRepository taskRepository, TaskMapper mapper, ProjectMapper projectMapper) {
@@ -59,6 +59,12 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void delete(Long id) {
+        Optional<Task> task = taskRepository.findById(id);
+//        taskRepository.delete(task.get());
+        task.get().setIsDeleted(true);
+        taskRepository.save(task.get());
+
+
         Optional<Task> foundTask = taskRepository.findById(id);
         if (foundTask.isPresent()) {
             foundTask.get().setIsDeleted(true);
@@ -66,6 +72,14 @@ public class TaskServiceImpl implements TaskService {
         }
     }
 
+
+    @Override
+    public TaskDTO findTaskById(Long id) {
+        Task tasks = taskRepository.findById(id).get();
+        return mapper.convertToDto(tasks);
+
+
+    }
     @Override
     public void update(TaskDTO taskDTO) {
         Optional<Task> task = taskRepository.findById(taskDTO.getId());
@@ -81,7 +95,6 @@ public class TaskServiceImpl implements TaskService {
             taskRepository.save(updatedTask);
         }
     }
-
 
     @Override
     public void deleteByProject(ProjectDTO projectDTO) {

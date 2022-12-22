@@ -21,4 +21,6 @@ public interface TaskService {
 
     void deleteByProject(ProjectDTO projectDTO);
 
+    TaskDTO findTaskById(Long id);
+
 }
